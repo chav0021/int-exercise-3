@@ -5,31 +5,161 @@
 @viewport { width: device-width; scale: 1; }
 
 html {
-	box-sizing: border-box;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-	text-size-adjust: 100%;
+    box-sizing: border-box;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 
 *, *:before, *:after {
-	box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 
 body{
-  font-family: sans-serif;
-  @include zero;
-  // Hides close button if there is no js
-  &.noscript .close-btn{
-    display: none;
+    font-family: sans-serif;
+    @include zero;
+        &.noscript .close-btn,
+        &.noscript .toggle-btn {
+            display: none;
   }
 }
 
 header {
-  padding: 0 1em;
-  position: relative;
+    padding: 0 1em;
+    position: relative;
 }
 
+h1 {
+    font-size: 3em;
+}
 
+.toggle-btn,
+.close-btn {
+    color: $text-color;
+    height: 40px;
+    width: 40px;
+    span {
+        @include hide-text;
+    }
+    i {
+        border: 1px solid $light-grey;
+        border-radius: 2px;
+        padding: .75em .5em .5em;
+    }
+}
+
+.toggle-btn, .close-btn {
+    position: absolute;
+    right: 1em;
+    top: 0;
+}
+
+.navigation ul {
+    @include zero;
+    li {
+        list-style-type: none;
+    }
+    a {
+        display: block;
+        font-size: 3em;
+        color: $light-grey;
+        text-align: left;
+        font-weight: 600;
+        padding: .25em;
+        text-decoration: none;
+        @include ease(color, 250ms, linear)
+    }
+    a:hover {
+        color: $hover-color;
+    }
+}
+
+@media only screen and (max-width: 60em) {
+    
+    .site-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        z-index: 100;
+        .sliding-canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: translateX(0);
+            transition: all 250ms linear;
+        }//Sliding Cnvas
+        &[data-state="slide-open"] .sliding-canvas {
+            transform: translateX(-100%);
+        }
+        &[data-state="slide-open"] {
+            overflow: visible;
+        }
+        &[data-state="slide-open"] .slide-menu {
+            opacity: 1;
+        }
+    }//Site Wrapper
+    
+    .slide-menu {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        right: -100%;
+        opacity: 0;
+        transition: all 850ms linear;
+    }
+    
+}//60em media query
+
+@media only screen and (min-width: 60em) {
+    
+    .toggle-btn,
+    .close-btn {
+        display: none;
+    }
+    
+    h1 {
+        font-size: 5em;
+        float: left;
+    }
+    
+    .navigation {
+        border-top: 12px solid black;
+        float: right;
+        margin-top: 2.7rem;
+        ul li {
+            display: inline-block;
+            padding: 0;
+        }
+        ul li a {
+            position: relative;
+        }
+        ul li a:hover {
+            color: $text-color;
+        }
+        ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            opacity: 0;
+            background: $light-grey;
+            transition: all 250ms linear;
+        }
+        ul li a:hover:after {
+            opacity: 1;
+        }
+    }
+    
+}
+
+body.noscript .slide-menu {
+    position: static;
+    right: auto;
+}
