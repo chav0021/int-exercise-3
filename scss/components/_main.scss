@@ -32,8 +32,35 @@ header {
     position: relative;
 }
 
+footer {
+    padding: 100rem 2rem 0;
+    img {
+        width: 100%;
+        max-width: 600px;
+    }
+    span {
+        letter-spacing: -3px;
+    }
+}
+
 h1 {
     font-size: 3em;
+    letter-spacing: -2px;
+}
+
+h2 {
+    @include zero;
+    font-size: 6rem;
+    line-height: .8;
+    margin: 0.75rem 0 0 -8px;
+    letter-spacing: -8px;
+}
+
+h3 {
+    @include zero;
+    display: block;
+    margin-left: -3px;
+    margin-bottom: 1.5rem;
 }
 
 .toggle-btn,
@@ -67,6 +94,7 @@ h1 {
         font-size: 3em;
         color: $light-grey;
         text-align: left;
+        letter-spacing: -1px;
         font-weight: 600;
         padding: .25em;
         text-decoration: none;
